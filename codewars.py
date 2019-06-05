@@ -515,3 +515,40 @@ print (pick_peaks([3, 2, 3, 6, 4, 1, 2, 3, 2, 1, 2, 3]), {"pos": [3, 7], "peaks"
 print (pick_peaks([3, 2, 3, 6, 4, 1, 2, 3, 2, 1, 2, 2, 2, 1]), {"pos": [3, 7, 10], "peaks": [6, 3, 2]})
 print (pick_peaks([2, 1, 3, 1, 2, 2, 2, 2, 1]), {"pos": [2, 4], "peaks": [3, 2]})
 print (pick_peaks([2, 1, 3, 1, 2, 2, 2, 2]), {"pos": [2], "peaks": [3]})
+
+
+# 19
+"""Given a positive number n > 1 find the prime factor decomposition of n. The result will be a string with the 
+following form : 
+ "(p1**n1)(p2**n2)...(pk**nk)"
+with the p(i) in increasing order and n(i) empty if n(i) is 1.
+
+Example: n = 86240 should return "(2**5)(5)(7**2)(11)" """
+
+def primeFactors(n):
+    i = 2
+    result = []
+    ans = ''
+    while i * i <= n:
+        while n % i == 0:
+            result.append(i)
+            n = n / i
+        i = i + 1
+    if n > 1:
+        result.append(n)
+
+    for i in result:
+        q = result.count(i)
+        if q > 1:
+            temp = '(' + str(i) + '**' + str(q) + ')'
+            if ans.__contains__(temp):
+                continue
+            ans += temp
+        else:
+            ans += '(' + str(i) + ')'
+    return ans
+
+
+print (primeFactors(7775460), "(2**2)(3**3)(5)(7)(11**2)(17)")
+print primeFactors(2940)
+
